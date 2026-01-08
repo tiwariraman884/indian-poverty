@@ -1,43 +1,56 @@
-# SAMPARK Stack™
-## Smart Adaptive Multidimensional Poverty & Resilience Kernel
+# SAMPARK Stack™ - Poverty Elimination OS
 
-> Digital Public Infrastructure for Poverty Elimination (2024-2030)
+SAMPARK Stack™ is a unified, AI-driven, and blockchain-secured Digital Public Infrastructure (DPI) designed to identify, predict, and remediate multidimensional poverty.
 
-### Overview
-SAMPARK Stack™ is a full-stack, AI-driven, blockchain-secured socio-technical platform designed to identify, predict, and remediate multidimensional poverty at household, village, ward, and district levels in India.
+![SAMPARK Logo](./frontend/public/images/logo.png)
 
-**This is not an app. This is digital public infrastructure as software.**
+## 🚀 Vision
+To solve the complexity of multidimensional poverty via a unified socio-technical operating system that ensures every citizen receives the right interventions at the right time.
 
-### Key Features
-- 🤖 **AI-Powered MPI Scoring** - Real-time multidimensional poverty intelligence
-- 🏥 **Health AI Stack** - Non-invasive diagnostics and ABDM integration
-- 🔗 **Blockchain Welfare** - Zero-leakage PDS and DBT delivery
-- ⚡ **Energy & Housing** - Smart monitoring and resilience tracking
-- 🎓 **Education Engine** - FLN diagnostics and dropout prevention
-- 🌍 **Climate Intelligence** - Parametric insurance and early warnings
+## 🏗️ Architecture
+The platform is built on a modular "Stack" architecture:
+- **MPI Intelligence Engine**: Real-time multidimensional poverty scoring.
+- **Precision Health**: AI-driven health interventions (e.g., Anemia-free India).
+- **Smart Welfare**: Direct benefit mapping and leakage prevention.
+- **Climate Resilience**: Risk prediction for agricultural and housing policy.
 
-### Architecture
-- **Frontend**: React + Tailwind (Web), Flutter (Mobile)
-- **Backend**: NestJS (API Gateway), Python (AI Services)
-- **Database**: PostgreSQL, TimescaleDB (IoT), IPFS
-- **Blockchain**: Vishvasya (Permissioned)
-- **AI/ML**: PyTorch, TensorFlow, ONNX (Edge AI)
+## 🛠️ Technology
+- **Frontend**: React 18, Tailwind CSS, Lucide Icons.
+- **State Management**: React Context (Auth & Profile).
+- **Backend API**: REST Spec v1 (NestJS/FastAPI).
+- **Security**: AES-256 Encryption, DPDP Act Compliant.
 
-### Project Structure
-```
-sampark-stack/
-├── backend/           # NestJS API Gateway
-├── ai-services/       # Python ML/AI microservices
-├── frontend/          # React dashboard
-├── mobile/            # Flutter apps
-├── blockchain/        # Smart contracts
-├── database/          # Schema migrations
-├── docs/              # API documentation
-└── infrastructure/    # Docker, K8s configs
-```
+## 💻 Getting Started
 
-### Quick Start
-See individual service READMEs for setup instructions.
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
 
-### License
-Government of India - Public Infrastructure License
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/tiwariraman884/indian-poverty.git
+   ```
+2. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 🔐 Authentication
+The platform uses a global `AuthContext` to manage sessions. Default credentials for testing:
+- **Email**: `admin@sampark.gov.in`
+- **Password**: `password123` (min 6 characters)
+
+## 📄 License
+Digital Public Infrastructure as Open Source Software.
+
+---
+© 2024-2030 Government of India. Ministry of Electronics & IT.
