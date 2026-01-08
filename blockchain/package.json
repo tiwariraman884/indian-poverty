@@ -1,0 +1,29 @@
+﻿{
+  "name": "@sampark/blockchain",
+  "version": "1.0.0",
+  "description": "Vishvasya Blockchain Smart Contracts for SAMPARK Stack",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network vishvasya-testnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network vishvasya-mainnet"
+  },
+  "keywords": [
+    "blockchain",
+    "smart-contracts",
+    "vishvasya",
+    "welfare",
+    "pds",
+    "dpi"
+  ],
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.1",
+    "ethers": "^6.10.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.4",
+    "chai": "^4.3.10"
+  }
+}

@@ -1,0 +1,132 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: sampark-postgres
+    environment:
+      POSTGRES_DB: sampark
+      POSTGRES_USER: sampark_admin
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - sampark-network
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg15
+    container_name: sampark-timescale
+    environment:
+      POSTGRES_DB: sampark_iot
+      POSTGRES_USER: sampark_iot
+      POSTGRES_PASSWORD: ${TIMESCALE_PASSWORD:-changeme}
+    ports:
+      - "5433:5432"
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+    networks:
+      - sampark-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: sampark-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - sampark-network
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: sampark-kafka
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    networks:
+      - sampark-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: sampark-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - sampark-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sampark-backend
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://sampark_admin:${DB_PASSWORD:-changeme}@postgres:5432/sampark
+      REDIS_URL: redis://redis:6379
+      KAFKA_BROKER: kafka:9092
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - sampark-network
+
+  ai-services:
+    build:
+      context: ./ai-services
+      dockerfile: Dockerfile
+    container_name: sampark-ai
+    environment:
+      PYTHONUNBUFFERED: 1
+      DATABASE_URL: postgresql://sampark_admin:${DB_PASSWORD:-changeme}@postgres:5432/sampark
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./ai-services:/app
+      - ai_models:/models
+    networks:
+      - sampark-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sampark-frontend
+    environment:
+      VITE_API_URL: http://localhost:3000/v1
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - sampark-network
+
+volumes:
+  postgres_data:
+  timescale_data:
+  redis_data:
+  ai_models:
+
+networks:
+  sampark-network:
+    driver: bridge

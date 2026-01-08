@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.pyc
+.Python
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Database
+*.db
+*.sqlite
+*.sql.backup
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Blockchain keys (NEVER COMMIT)
+*.key
+*.pem
+wallet/
+
+# Secrets
+secrets.yaml
+credentials.json
